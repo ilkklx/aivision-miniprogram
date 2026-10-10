@@ -1,0 +1,60 @@
+<!--pages/colorblind/colorblind.wxml-->
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <view class="header">
+    <view class="progress-bar">
+      <view class="progress" style="width: {{((currentIndex + 1) / testList.length) * 100}}%"></view>
+    </view>
+    <view class="header-info">
+      <view class="mode-info">模式: {{simulationType === 'normal' ? '正常视觉' : '模拟视觉'}}</view>
+      <view class="page-info">题目 {{currentIndex + 1}} / {{testList.length}}</view>
+    </view>
+  </view>
+
+  <!-- 模拟切换工具栏 -->
+  <view class="simulation-toolbar">
+    <view class="tool-item" bindtap="toggleSimulation">
+      <text class="tool-label">{{t.colorblind.visualSim}}</text>
+      <switch checked="{{isSimulating}}" color="#007AFF" size="small"></switch>
+    </view>
+    <scroll-view scroll-x class="type-selector" wx:if="{{isSimulating}}">
+      <view class="type-btn {{simulationType === 'protanopia' ? 'active' : ''}}" bindtap="changeSimType" data-type="protanopia">{{t.colorTrain.protanopia}}</view>
+      <view class="type-btn {{simulationType === 'deuteranopia' ? 'active' : ''}}" bindtap="changeSimType" data-type="deuteranopia">{{t.colorTrain.protanopia}}</view>
+      <view class="type-btn {{simulationType === 'tritanopia' ? 'active' : ''}}" bindtap="changeSimType" data-type="tritanopia">{{t.colorTrain.tritanopia}}</view>
+      <view class="type-btn {{simulationType === 'achromatopsia' ? 'active' : ''}}" bindtap="changeSimType" data-type="achromatopsia">{{t.colorTrain.achromatopsia}}</view>
+    </scroll-view>
+  </view>
+
+  <view class="test-area card">
+    <view class="title">{{t.colorblind.identify}}</view>
+    
+    <view class="plate-container">
+      <image class="plate-image" src="{{testList[currentIndex].image}}" mode="aspectFit" wx:if="{{testList[currentIndex].image}}"></image>
+      <view class="plate-placeholder" wx:else>
+        <view class="dot-pattern" style="background-image: radial-gradient(circle, {{displayColors.bg}} 4rpx, transparent 0); background-size: 14rpx 14rpx;"></view>
+        <view class="target-text" style="color: {{displayColors.target}}">{{testList[currentIndex].answer}}</view>
+      </view>
+    </view>
+
+    <view class="contrast-badge {{currentContrast >= 4.5 ? 'pass' : 'warn'}}">
+      对比度: {{currentContrast}}:1 {{currentContrast >= 4.5 ? '✓' : '!'}}
+    </view>
+  </view>
+
+  <view class="answer-area">
+    <view class="options-grid">
+      <button 
+        class="option-btn {{selectedOption === item ? (answerStatus === 'correct' ? 'anim-correct' : 'anim-wrong') : ''}}" 
+        wx:for="{{testList[currentIndex].options}}" 
+        wx:key="*this"
+        bindtap="selectOption"
+        data-val="{{item}}"
+      >{{item}}</button>
+    </view>
+    <button class="btn btn-outline unknown-btn {{selectedOption === t.detect.placeholder ? 'anim-wrong' : ''}}" bindtap="selectOption" data-val="{{t.detect.placeholder}}">{{t.detect.placeholder}}</button>
+  </view>
+
+  <view class="tip">{{t.result.footerTip}}</view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

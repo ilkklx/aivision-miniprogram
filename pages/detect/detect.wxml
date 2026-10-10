@@ -1,0 +1,174 @@
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <camera
+    wx:if="{{showCamera && !isSimulator}}"
+    device-position="{{cameraPosition}}"
+    flash="off"
+    class="camera-view"
+    binderror="handleCameraError"
+    bindinitdone="handleCameraInit"
+    frame-size="medium"
+  >
+    <canvas type="2d" id="handCanvas" class="hand-canvas"></canvas>
+  </camera>
+
+  <canvas
+    type="webgl"
+    id="vkCanvas"
+    class="vk-hidden-canvas"
+  ></canvas>
+
+  <view wx:if="{{isSimulator}}" class="camera-view simulator-view">
+    <view class="simulator-text">模拟器环境无法调用实时手势识别</view>
+  </view>
+
+  <!-- 科技感左右眼模式背景光效 -->
+  <view class="eye-tech-overlay {{currentEye}}">
+    <view class="edge-glow"></view>
+    <view class="tech-lines"></view>
+    <view class="scan-bar"></view>
+  </view>
+
+  <!-- 屏幕四周边缘渐变光晕 -->
+  <view class="page-glow {{currentEye}}"></view>
+
+  <view class="mask {{currentEye}}">
+    <view class="status-bar" bindlongpress="toggleDebug">
+      <!-- 语言切换按钮 -->
+      <view class="lang-switch-fixed" bindtap="switchLanguage">
+        <text class="{{language === 'zh' ? 'active' : ''}}">中</text>
+        <text class="divider">|</text>
+        <text class="{{language === 'en' ? 'active' : ''}}">EN</text>
+      </view>
+
+      <view class="progress-box">
+        <!-- 同步移动的小动物 -->
+        <view class="animal-runner {{isAnimalJump ? 'jump' : ''}}" 
+              wx:if="{{showAnimal}}"
+              style="left: {{progress}}%; font-size: {{animalSize}}rpx;">
+          {{currentAnimal}}
+        </view>
+
+        <!-- 等级提升小人动画容器 -->
+        <view class="level-up-container {{showLevelUp ? 'animate' : ''}}">
+          <view class="level-char">{{levelChar}}</view>
+          <view class="particle" wx:for="{{levelParticles}}" wx:key="id" 
+                style="left: 50%; top: 50%; transform: translate(-50%, -50%); --particle-x: {{item.left}}rpx; --particle-y: {{item.top}}rpx; animation-delay: {{item.delay}}s">
+          </view>
+        </view>
+        
+        <progress
+          percent="{{progress}}"
+          stroke-width="8"
+          activeColor="{{progressColor}}"
+          backgroundColor="#e0e0e0"
+          border-radius="4"
+        ></progress>
+      </view>
+      
+      <view class="top-info">
+        <view class="level-text">{{t.detect.level}}: {{currentLevel + 1}} / {{visionLevels.length}}</view>
+        <view class="anim-toggle {{animationEnabled ? 'active' : ''}}" bindtap="toggleAnimation">
+          ✨
+        </view>
+        <view class="anim-toggle {{showAnimal ? 'active' : ''}}" bindtap="toggleAnimal" style="margin-left: 10rpx;">
+          🐾
+        </view>
+        <view class="mode-switch">
+          <picker bindchange="changeMode" value="{{modeIndex}}" range="{{modes}}">
+            <view class="picker">
+              {{t.detect.mode}}: {{modes[modeIndex]}} ▼
+            </view>
+          </picker>
+        </view>
+        <view class="camera-switch" bindtap="switchCamera">
+          {{t.detect.switchCamera}}
+        </view>
+        <view class="eye-switch {{currentEye}}" bindtap="toggleEye">
+          {{currentEye === 'left' ? t.result.leftEye : t.result.rightEye}}
+        </view>
+        <view class="camera-switch" bindtap="toggleAIMode">
+          {{aiEnabled ? t.detect.disableAI : t.detect.enableAI}}
+        </view>
+      </view>
+
+      <!-- 左右眼切换提示 -->
+      <view class="eye-toast {{eyeToastShow ? 'show' : ''}}">
+        <text>{{eyeToastText}}</text>
+      </view>
+
+      <view class="debug-panel" wx:if="{{showDebug || isSimulator}}">
+        <view class="debug-title">
+          诊断日志
+        </view>
+        <view class="debug-item" wx:for="{{diagnostics.history}}" wx:key="time">
+          <text class="time">[{{item.time}}]</text>
+          <text class="type {{item.type}}">{{item.type}}</text>
+          <text>: {{item.message}}</text>
+        </view>
+        <view class="simulator-hint" wx:if="{{isSimulator}}">
+          提示：请使用真机预览测试 AI 手势识别。
+        </view>
+      </view>
+    </view>
+
+    <view class="guidance-bar {{handDetected ? 'detected' : ''}}">
+      <view class="dot {{isProcessing ? 'processing' : ''}}"></view>
+      <text>{{guidanceTip}}</text>
+      <view class="confidence-tag" wx:if="{{handDetected}}">置信度: {{confidence}}%</view>
+    </view>
+
+    <view class="guide-card">
+      <view class="guide-line">{{t.detect.mode}}：{{engineModeText}}</view>
+      <view class="guide-line">{{t.detect.gestureLabel}}：{{lastGestureLabel}}</view>
+      <view class="guide-line">{{gestureGuideText}}</view>
+    </view>
+
+    <view class="detect-main flex-center" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd">
+      <vision-chart
+        type="{{chartType}}"
+        size="{{eSize}}"
+        rotation="{{eDirection}}"
+        symbol="{{currentSymbol}}"
+        wx:if="{{showE}}"
+      ></vision-chart>
+
+      <view class="tip-text" wx:if="{{tipText}}">{{tipText}}</view>
+      <view class="feedback-icon {{feedback.type}}" wx:if="{{feedback.show}}">
+        {{feedback.icon}}
+      </view>
+    </view>
+
+    <view class="footer">
+      <view class="action-prompt">{{aiEnabled ? t.detect.tipE_AI : t.detect.tipE}}</view>
+      <view class="mock-controls">
+        <view class="mock-title">{{t.detect.controlTitle}}</view>
+        <view class="mock-grid" wx:if="{{chartType === 'E'}}">
+          <button class="mock-btn" bindtap="mockRecognize" data-val="270">↑</button>
+          <button class="mock-btn" bindtap="mockRecognize" data-val="180">←</button>
+          <button class="mock-btn" bindtap="mockRecognize" data-val="0">→</button>
+          <button class="mock-btn" bindtap="mockRecognize" data-val="90">↓</button>
+        </view>
+        <view class="mock-grid" wx:elif="{{chartType === 'number'}}">
+          <button class="mock-btn" wx:for="{{['0','1','2','3','4','5','6','8']}}" wx:key="*this" bindtap="mockRecognize" data-val="{{item}}">{{item}}</button>
+        </view>
+        <view class="mock-grid" wx:elif="{{chartType === 'graphic'}}">
+          <button class="mock-btn" bindtap="mockRecognize" data-val="circle">○</button>
+          <button class="mock-btn" bindtap="mockRecognize" data-val="square">□</button>
+          <button class="mock-btn" bindtap="mockRecognize" data-val="triangle">△</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="permission-modal" wx:if="{{showPermissionModal}}">
+    <view class="card">
+      <view class="modal-title">摄像头权限申请</view>
+      <view class="modal-content">我们需要您的摄像头权限，以通过AI识别您的手势来进行视力检测。</view>
+      <button class="btn btn-primary" bindtap="requestCameraAccess">授权</button>
+      <button class="btn" bindtap="handleRejectPermission">拒绝</button>
+    </view>
+  </view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

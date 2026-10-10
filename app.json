@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detect/detect",
+    "pages/result/result",
+    "pages/protect/protect",
+    "pages/astigmatism/astigmatism",
+    "pages/color-train/color-train",
+    "pages/astigmatism-train/astigmatism-train"
+  ],
+  "subpackages": [
+    {
+      "root": "package_colorblind",
+      "pages": [
+        "pages/colorblind/colorblind"
+      ]
+    },
+    {
+      "root": "package_ai",
+      "pages": [
+        "pages/chat/chat"
+      ]
+    },
+    {
+      "root": "package_user",
+      "pages": [
+        "pages/login/login"
+      ]
+    },
+    {
+      "root": "package_eye_exercises",
+      "pages": [
+        "pages/eye-exercises/eye-exercises"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "灵眸慧检",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8F9FA"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.camera": {
+      "desc": "我们需要使用摄像头来进行 AI 手势识别和视力测试"
+    }
+  },
+  "usingComponents": {
+    "vision-chart": "/components/vision-chart/vision-chart",
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

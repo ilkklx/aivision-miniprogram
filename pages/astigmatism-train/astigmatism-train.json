@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "散光康复训练",
+  "navigationBarBackgroundColor": "#F0F4F8",
+  "navigationBarTextStyle": "black",
+  "disableScroll": true,
+  "usingComponents": {
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="header">
+    <text class="title">图片测试</text>
+  </view>
+
+  <view class="test-section">
+    <text class="test-title">测试1: 绝对路径</text>
+    <image 
+      src="/package_eye_exercises/pages/eye-exercises/assets/01.png" 
+      mode="aspectFit"
+      style="width: 100%; height: 300rpx; background: #f0f0f0;"
+    ></image>
+  </view>
+
+  <view class="test-section">
+    <text class="test-title">测试2: 相对路径</text>
+    <image 
+      src="./assets/01.png" 
+      mode="aspectFit"
+      style="width: 100%; height: 300rpx; background: #e0e0e0;"
+    ></image>
+  </view>
+
+  <view class="test-section">
+    <text class="test-title">测试3: 主包路径（如果存在）</text>
+    <image 
+      src="/assets/images/logo.png.png" 
+      mode="aspectFit"
+      style="width: 100%; height: 300rpx; background: #d0d0d0;"
+    ></image>
+  </view>
+
+  <button bindtap="goBack" type="primary">返回眼保健操</button>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "检测报告",
+  "usingComponents": {
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

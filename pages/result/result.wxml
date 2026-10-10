@@ -1,0 +1,62 @@
+<!--pages/result/result.wxml-->
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <!-- 语言切换按钮 -->
+  <view class="lang-switch-fixed" bindtap="switchLanguage">
+    <text class="{{language === 'zh' ? 'active' : ''}}">中</text>
+    <text class="divider">|</text>
+    <text class="{{language === 'en' ? 'active' : ''}}">EN</text>
+  </view>
+
+  <view class="result-card">
+    <view class="result-title">{{t.result.title}}</view>
+    
+    <!-- 视力模式显示 -->
+    <block wx:if="{{type === 'vision'}}">
+      <view class="result-value">{{level}}</view>
+      <view class="result-label">{{t.result.visionLevel}}</view>
+    </block>
+
+    <!-- 色盲或散光模式显示 -->
+    <block wx:else>
+      <view class="result-value">{{score}}<text class="unit">{{t.result.score}}</text></view>
+      <view class="result-label">{{resultText}}</view>
+    </block>
+    
+    <view class="divider"></view>
+    
+    <view class="info-list">
+      <view class="info-item" wx:if="{{type === 'vision'}}">
+        <text class="label">{{t.result.testEye}}</text>
+        <text class="value">{{eye}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">{{t.result.testTime}}</text>
+        <text class="value">{{time}}</text>
+      </view>
+      <view class="info-item" wx:if="{{type === 'vision'}}">
+        <text class="label">{{t.result.testDuration}}</text>
+        <text class="value">{{duration}}</text>
+      </view>
+    </view>
+    
+    <view class="analysis-box">
+      <view class="analysis-title">{{type === 'vision' ? t.result.analysisTitle : t.result.expertSuggestion}}</view>
+      <view class="analysis-content">
+        {{type === 'vision' ? analysisText : suggestion}}
+      </view>
+    </view>
+  </view>
+
+  <button class="btn btn-primary" bindtap="retest">{{t.common.retest}}</button>
+  <button class="btn btn-secondary" bindtap="goToVisionTrain" wx:if="{{type === 'vision'}}">{{visionTrainBtnText || t.result.goToVisionTrain}}</button>
+  <button class="btn btn-secondary" bindtap="goToTrain" wx:if="{{type === 'colorblind'}}">{{t.result.goToTrain}}</button>
+  <button class="btn btn-secondary" bindtap="goToAstigmatismTrain" wx:if="{{type === 'astigmatism'}}">{{t.result.goToAstigTrain}}</button>
+  <button class="btn btn-outline" bindtap="goHome">{{t.common.goHome}}</button>
+  
+  <view class="footer-tip">
+    {{t.result.footerTip}}
+  </view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

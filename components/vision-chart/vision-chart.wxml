@@ -1,0 +1,17 @@
+<!--components/vision-chart/vision-chart.wxml-->
+<view class="chart-container">
+  <view class="chart-content {{type}}" style="font-size: {{size}}rpx; transform: rotate({{rotation}}deg);">
+    <block wx:if="{{type === 'E'}}">
+      <view class="e-symbol">E</view>
+    </block>
+    <block wx:elif="{{type === 'number'}}">
+      <view class="symbol">{{symbol}}</view>
+    </block>
+    <block wx:elif="{{type === 'letter'}}">
+      <view class="symbol">{{symbol}}</view>
+    </block>
+    <block wx:elif="{{type === 'graphic'}}">
+      <view class="graphic-item {{symbol}}"></view>
+    </block>
+  </view>
+</view>

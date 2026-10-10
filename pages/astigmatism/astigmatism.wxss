@@ -1,0 +1,151 @@
+/* pages/astigmatism/astigmatism.wxss */
+.container {
+  padding: 40rpx;
+  background-color: transparent;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #2D3748;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #718096;
+  margin-top: 10rpx;
+}
+
+.test-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx;
+  margin-bottom: 40rpx;
+}
+
+.astigmatism-chart {
+  width: 500rpx;
+  height: 500rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  position: absolute;
+  width: 450rpx;
+  height: 4rpx;
+  background-color: #333;
+  transform-origin: center;
+}
+
+.center-circle {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #fff;
+  border: 4rpx solid #333;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.question-area {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 40rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.question-text {
+  font-size: 30rpx;
+  color: #4A5568;
+  line-height: 1.6;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.axis-selection {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  padding: 40rpx;
+  border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  box-shadow: 0 -10rpx 40rpx rgba(0,0,0,0.15);
+  z-index: 10;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.picker-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2D3748;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.axis-picker {
+  width: 300rpx;
+  height: 300rpx;
+  margin: 0 auto 40rpx;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.axis-item {
+  position: absolute;
+  width: 280rpx;
+  height: 60rpx;
+  transform-origin: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.axis-indicator {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 4rpx solid #E2E8F0;
+  background-color: #fff;
+}
+
+.axis-item.active .axis-indicator {
+  background-color: #007AFF;
+  border-color: #007AFF;
+  box-shadow: 0 0 15rpx rgba(0,122,255,0.5);
+}
+
+.confirm-btn {
+  width: 100% !important;
+}
+
+.tip {
+  margin-top: 40rpx;
+  font-size: 22rpx;
+  color: #A0AEC0;
+  text-align: center;
+}

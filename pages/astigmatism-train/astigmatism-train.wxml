@@ -1,0 +1,86 @@
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <view class="header">
+    <view class="title">🛡️ {{t.astigTrain.title}}</view>
+    <view class="stats-row">
+      <view class="stat-box">
+        <text class="stat-val">{{todayTrainTime}}m</text>
+        <text class="stat-label">{{t.astigTrain.todayTrain}}</text>
+      </view>
+      <view class="stat-box">
+        <text class="stat-val">{{streakDays}}{{t.astigTrain.days}}</text>
+        <text class="stat-label">{{t.astigTrain.streak}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏菜单 -->
+  <view class="game-menu" wx:if="{{!activeGame}}">
+    <view class="menu-item" bindtap="selectGame" data-id="meridian">
+      <view class="menu-icon">🎡</view>
+      <view class="menu-content">
+        <view class="menu-title">{{t.astigTrain.meridian}}</view>
+        <view class="menu-desc">{{t.astigTrain.meridianDesc}}</view>
+        <view class="difficulty-bar">
+          <view class="diff-dot active"></view>
+          <view class="diff-dot {{difficulty >= 2 ? 'active' : ''}}"></view>
+          <view class="diff-dot {{difficulty >= 3 ? 'active' : ''}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-item" bindtap="selectGame" data-id="contrast">
+      <view class="menu-icon">👁️‍🗨️</view>
+      <view class="menu-content">
+        <view class="menu-title">{{t.astigTrain.contrast}}</view>
+        <view class="menu-desc">{{t.astigTrain.contrastDesc}}</view>
+        <view class="difficulty-bar">
+          <view class="diff-dot active"></view>
+          <view class="diff-dot {{difficulty >= 2 ? 'active' : ''}}"></view>
+          <view class="diff-dot {{difficulty >= 3 ? 'active' : ''}}"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏区域 -->
+  <view class="game-stage" wx:else>
+    <view class="stage-header">
+      <view class="close-btn" bindtap="exitGame">{{t.common.exit}}</view>
+      <view class="timer">⏱️ {{timeLeft}}s</view>
+      <view class="score">{{t.colorTrain.accuracy}}: {{score}}</view>
+    </view>
+
+    <!-- 游戏1：经线对齐 -->
+    <view class="game-meridian" wx:if="{{activeGame.id === 'meridian'}}">
+      <view class="target-indicator" style="transform: rotate({{targetAngle}}deg)"></view>
+      <view class="player-dial" style="transform: rotate({{currentAngle}}deg)" 
+            bindtouchstart="handleTouchStart" bindtouchmove="handleTouchMove">
+        <view class="dial-line"></view>
+      </view>
+      <view class="instruction">{{t.astigTrain.instructionMeridian}}</view>
+    </view>
+
+    <!-- 游戏2：对比度强化 -->
+    <view class="game-contrast" wx:if="{{activeGame.id === 'contrast'}}">
+      <view class="gabor-patch" style="transform: rotate({{gaborAngle}}deg); opacity: {{gaborOpacity}}">
+        <view class="stripe" wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="*this"></view>
+      </view>
+      <view class="controls">
+        <button class="action-btn" bindtap="handleContrastAction" data-type="clear">{{t.astigTrain.btnContrastClear}}</button>
+        <button class="action-btn blur" bindtap="handleContrastAction" data-type="blur">{{t.astigTrain.btnContrastBlur}}</button>
+      </view>
+      <view class="instruction">{{t.astigTrain.instructionContrast}}</view>
+    </view>
+
+    <view class="feedback-toast {{feedbackType}}" wx:if="{{showFeedback}}">
+      {{feedbackText}}
+    </view>
+  </view>
+
+  <view class="footer-tip" wx:if="{{!activeGame}}">
+    {{t.result.footerTip}}
+  </view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

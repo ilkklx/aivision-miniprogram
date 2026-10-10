@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "色盲色弱检测",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

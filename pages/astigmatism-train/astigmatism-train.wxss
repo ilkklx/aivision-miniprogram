@@ -1,0 +1,285 @@
+/* pages/astigmatism-train/astigmatism-train.wxss */
+page {
+  background-color: transparent;
+  height: 100vh;
+}
+
+.container {
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #2C3E50;
+  margin-bottom: 20rpx;
+}
+
+.stats-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 20rpx 30rpx;
+  border-radius: 20rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-val {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3498DB;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #95A5A6;
+  margin-top: 4rpx;
+}
+
+/* 菜单样式 */
+.game-menu {
+  flex: 1;
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 30rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-icon {
+  font-size: 60rpx;
+  margin-right: 30rpx;
+  background: #ECF0F1;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-content {
+  flex: 1;
+}
+
+.menu-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.menu-desc {
+  font-size: 22rpx;
+  color: #7F8C8D;
+  margin-top: 8rpx;
+  line-height: 1.4;
+}
+
+.difficulty-bar {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 16rpx;
+}
+
+.diff-dot {
+  width: 30rpx;
+  height: 8rpx;
+  background: #BDC3C7;
+  border-radius: 4rpx;
+}
+
+.diff-dot.active {
+  background: #3498DB;
+}
+
+/* 游戏区域 */
+.game-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 40rpx;
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.15);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.close-btn {
+  font-size: 26rpx;
+  color: #E74C3C;
+  font-weight: bold;
+}
+
+.timer {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.score {
+  font-size: 28rpx;
+  color: #3498DB;
+  font-weight: bold;
+}
+
+.instruction {
+  margin-top: auto;
+  text-align: center;
+  font-size: 26rpx;
+  color: #7F8C8D;
+  background: #F8F9F9;
+  padding: 24rpx;
+  border-radius: 20rpx;
+}
+
+/* 游戏1：经线对齐 */
+.game-meridian {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.target-indicator {
+  position: absolute;
+  width: 400rpx;
+  height: 4rpx;
+  border-top: 4rpx dashed #BDC3C7;
+  pointer-events: none;
+}
+
+.player-dial {
+  width: 450rpx;
+  height: 450rpx;
+  border: 8rpx solid #3498DB;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.dial-line {
+  width: 400rpx;
+  height: 8rpx;
+  background: #3498DB;
+  border-radius: 4rpx;
+  box-shadow: 0 0 15rpx rgba(52, 152, 219, 0.4);
+}
+
+/* 游戏2：对比度强化 */
+.game-contrast {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gabor-patch {
+  width: 300rpx;
+  height: 300rpx;
+  background: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 40rpx rgba(0,0,0,0.05);
+  margin-bottom: 60rpx;
+  transition: transform 0.5s linear;
+}
+
+.stripe {
+  flex: 1;
+  width: 100%;
+}
+
+.stripe:nth-child(even) {
+  background: #333;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.action-btn {
+  background: #3498DB;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.action-btn.blur {
+  background: transparent;
+  color: #95A5A6;
+  border: 2rpx solid #BDC3C7;
+}
+
+/* 反馈 Toast */
+.feedback-toast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20rpx 40rpx;
+  border-radius: 40rpx;
+  color: white;
+  font-weight: bold;
+  z-index: 100;
+  animation: fadeInOut 0.8s ease-out forwards;
+}
+
+.feedback-toast.success { background: rgba(46, 204, 113, 0.9); }
+.feedback-toast.error { background: rgba(231, 76, 60, 0.9); }
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -30%); }
+  20% { opacity: 1; transform: translate(-50%, -50%); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -70%); }
+}
+
+.footer-tip {
+  margin-top: auto;
+  font-size: 22rpx;
+  color: #BDC3C7;
+  text-align: center;
+}

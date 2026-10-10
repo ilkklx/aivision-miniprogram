@@ -1,0 +1,248 @@
+/* pages/colorblind/colorblind.wxss */
+.container {
+  padding: 40rpx;
+  background-color: transparent;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 30rpx;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background-color: #E2E8F0;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.progress {
+  height: 100%;
+  background-color: #007AFF;
+  transition: width 0.3s ease;
+}
+
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mode-info {
+  font-size: 22rpx;
+  color: #007AFF;
+  font-weight: bold;
+}
+
+.page-info {
+  font-size: 24rpx;
+  color: #718096;
+}
+
+.simulation-toolbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tool-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.tool-label {
+  font-size: 26rpx;
+  color: #4A5568;
+  font-weight: bold;
+}
+
+.type-selector {
+  white-space: nowrap;
+  padding: 10rpx 0;
+}
+
+.type-btn {
+  display: inline-block;
+  font-size: 22rpx;
+  padding: 10rpx 24rpx;
+  background: #EDF2F7;
+  color: #4A5568;
+  border-radius: 30rpx;
+  margin-right: 16rpx;
+  transition: all 0.3s;
+}
+
+.type-btn.active {
+  background: #007AFF;
+  color: #fff;
+  box-shadow: 0 4rpx 10rpx rgba(0, 122, 255, 0.3);
+}
+
+.contrast-badge {
+  display: inline-block;
+  margin-top: 30rpx;
+  font-size: 20rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+.contrast-badge.pass {
+  background: #C6F6D5;
+  color: #2F855A;
+}
+
+.contrast-badge.warn {
+  background: #FED7D7;
+  color: #C53030;
+}
+
+.test-area {
+  text-align: center;
+  padding: 60rpx 40rpx;
+  margin-bottom: 60rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2D3748;
+  margin-bottom: 40rpx;
+}
+
+.plate-container {
+  width: 400rpx;
+  height: 400rpx;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10rpx 25rpx rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.plate-image {
+  width: 100%;
+  height: 100%;
+}
+
+.plate-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.dot-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.target-text {
+  font-size: 160rpx;
+  font-weight: 900;
+  z-index: 1;
+  filter: blur(1rpx);
+}
+
+.answer-area {
+  width: 100%;
+}
+
+.options-grid {
+  display: grid;
+  /* 改成固定宽度，而不是平分 */
+  grid-template-columns: 200rpx 200rpx;  /* 每列固定200rpx */
+  /* 或者混合模式 */
+  grid-template-columns: auto auto;      /* 根据内容自动调整 */
+  gap: 24rpx;
+  margin-bottom: 40rpx;
+  justify-content: center;                /* 让按钮组居中 */
+}
+
+.option-btn {
+  background-color: #fff;
+  color: #2D3748;
+  border: 2rpx solid #E2E8F0;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-btn:active {
+  background-color: #EDF2F7;
+  border-color: #CBD5E0;
+}
+
+.unknown-btn {
+  width: 100% !important;
+  border-color: #E2E8F0;
+  color: #718096;
+}
+
+/* --- 炫酷动态点击动画 --- */
+
+.anim-correct {
+  animation: jumpCorrect 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  color: #FFFFFF !important;
+  border-color: #34C759 !important;
+  background: linear-gradient(135deg, #34C759, #30D158) !important;
+  box-shadow: 0 8rpx 24rpx rgba(52, 199, 89, 0.4) !important;
+}
+
+.anim-wrong {
+  animation: shakeWrong 0.5s ease-in-out forwards !important;
+  color: #FFFFFF !important;
+  border-color: #FF3B30 !important;
+  background: linear-gradient(135deg, #FF3B30, #FF453A) !important;
+  box-shadow: 0 8rpx 24rpx rgba(255, 59, 48, 0.4) !important;
+}
+
+/* 答对时的弹跳放大动画 */
+@keyframes jumpCorrect {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15) translateY(-10rpx); }
+  60% { transform: scale(1.05) translateY(-5rpx); }
+  80% { transform: scale(1.1) translateY(-8rpx); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* 答错时的左右剧烈摇晃动画 */
+@keyframes shakeWrong {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-15rpx) rotate(-2deg); }
+  40% { transform: translateX(15rpx) rotate(2deg); }
+  60% { transform: translateX(-10rpx) rotate(-1deg); }
+  80% { transform: translateX(10rpx) rotate(1deg); }
+  100% { transform: translateX(0); }
+}
+
+.tip {
+  margin-top: 60rpx;
+  font-size: 22rpx;
+  color: #A0AEC0;
+  text-align: center;
+  line-height: 1.6;
+}

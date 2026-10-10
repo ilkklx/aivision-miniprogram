@@ -1,0 +1,134 @@
+/**app.wxss**/
+/* 医疗蓝主题色 */
+:root {
+  --primary-color: #3d8eff;
+  --primary-color-light: #e6f0ff;
+  --text-color: #333333;
+  --text-color-secondary: #888888;
+  --bg-color: #F8F9FA;
+  --white: #FFFFFF;
+}
+
+page {
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  box-sizing: border-box;
+}
+
+/* 全局背景图样式：保证在最底层且不覆盖其他元素 */
+.global-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
+  pointer-events: none;
+}
+
+/* 基础卡片样式 */
+.card {
+  background-color: rgba(255, 255, 255, 0.9); /* 卡片半透明以透出背景 */
+  backdrop-filter: blur(10px);
+  border-radius: 24rpx;
+  margin: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 8rpx 32rpx 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Flex 布局助手 */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 动态光晕边框动画 */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(
+    transparent, 
+    rgba(123, 61, 230, 0.8), 
+    transparent 20%
+  );
+  animation: borderRotate 3s linear infinite;
+  z-index: -2;
+  will-change: transform; /* 硬件加速 */
+}
+
+/* 内部填充背景 */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 4rpx; /* 边框厚度 */
+  border-radius: 44rpx; /* 稍小于外部圆角 */
+  z-index: -1;
+  transition: all 0.3s;
+}
+
+@keyframes borderRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.btn-primary {
+  color: #FFFFFF;
+}
+
+.btn-primary::after {
+  background: var(--primary-color);
+  box-shadow: inset 0 0 20rpx rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+.btn-primary:active::after {
+  background: #2a75e6;
+}
+
+.btn-secondary {
+  color: var(--primary-color);
+}
+
+.btn-secondary::after {
+  background: #FFFFFF;
+}
+
+.btn-secondary:active {
+  transform: scale(0.96);
+}
+
+.btn-secondary:active::after {
+  background: #f0f7ff;
+}
+
+/* 外部发光增强 (仅针对 Primary) */
+.btn-primary {
+  box-shadow: 0 0 30rpx rgba(61, 142, 255, 0.4);
+}
+
+/* 轮廓按钮适配 */
+.btn-outline {
+  color: #007AFF;
+}
+
+.btn-outline::after {
+  background: #FFFFFF;
+}
+

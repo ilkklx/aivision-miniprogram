@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="header">
+    <text class="title">{{currentName}}</text>
+    <text class="progress">{{currentIndex + 1}} / {{totalCount}}</text>
+  </view>
+
+  <view class="image-container">
+    <image 
+      wx:if="{{currentIndex === 0}}"
+      src="./assets/01.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+    <image 
+      wx:elif="{{currentIndex === 1}}"
+      src="./assets/02.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+    <image 
+      wx:elif="{{currentIndex === 2}}"
+      src="./assets/03.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+    <image 
+      wx:elif="{{currentIndex === 3}}"
+      src="./assets/04.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+    <image 
+      wx:elif="{{currentIndex === 4}}"
+      src="./assets/05.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+    <image 
+      wx:else
+      src="./assets/06.png"
+      mode="aspectFit"
+      binderror="onImageError"
+    ></image>
+  </view>
+
+  <view class="button-group">
+    <button class="btn prev-btn" bindtap="onPrevExercise">上一节</button>
+    <button class="btn next-btn" bindtap="onNextExercise">
+      {{currentIndex === totalCount - 1 ? '重新开始' : '下一节'}}
+    </button>
+  </view>
+
+  <view class="tip">
+    <text>请按照动作要领进行练习</text>
+  </view>
+</view>

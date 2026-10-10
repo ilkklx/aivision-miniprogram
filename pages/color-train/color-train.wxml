@@ -1,0 +1,103 @@
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <!-- 顶部状态与设置 -->
+  <view class="header">
+    <view class="mode-selector">
+      <view class="selector-title">{{t.colorTrain.visualMode}}:</view>
+      <scroll-view scroll-x class="type-scroll">
+        <view class="type-chip {{simulationType === 'normal' ? 'active' : ''}}" bindtap="changeMode" data-type="normal">{{t.colorTrain.normal}}</view>
+        <view class="type-chip {{simulationType === 'protanopia' ? 'active' : ''}}" bindtap="changeMode" data-type="protanopia">{{t.colorTrain.protanopia}}</view>
+        <view class="type-chip {{simulationType === 'tritanopia' ? 'active' : ''}}" bindtap="changeMode" data-type="tritanopia">{{t.colorTrain.tritanopia}}</view>
+        <view class="type-chip {{simulationType === 'achromatopsia' ? 'active' : ''}}" bindtap="changeMode" data-type="achromatopsia">{{t.colorTrain.achromatopsia}}</view>
+      </scroll-view>
+    </view>
+    
+    <view class="stats-bar" bindtap="showWeeklyReport">
+      <view class="stat-item">
+        <text class="label">{{t.colorTrain.todayTrain}}</text>
+        <text class="value">{{todayMinutes}}m</text>
+      </view>
+      <view class="stat-item">
+        <text class="label">{{t.colorTrain.accuracy}}</text>
+        <text class="value">{{avgAccuracy}}%</text>
+      </view>
+      <view class="report-icon">📊</view>
+    </view>
+  </view>
+
+  <!-- 游戏选择列表 -->
+  <scroll-view scroll-y class="game-menu" wx:if="{{!activeGame}}">
+    <view class="menu-card" wx:for="{{games}}" wx:key="id" bindtap="selectGame" data-id="{{item.id}}">
+      <view class="menu-icon">{{item.icon}}</view>
+      <view class="menu-info">
+        <view class="menu-name">{{item.name}}</view>
+        <view class="menu-desc">{{item.desc}}</view>
+        <view class="difficulty-dots">
+          <view class="dot {{item.difficulty >= 1 ? 'active' : ''}}"></view>
+          <view class="dot {{item.difficulty >= 2 ? 'active' : ''}}"></view>
+          <view class="dot {{item.difficulty >= 3 ? 'active' : ''}}"></view>
+        </view>
+      </view>
+      <view class="enter-arrow">→</view>
+    </view>
+  </scroll-view>
+
+  <!-- 游戏进行区域 -->
+  <view class="game-stage" wx:else>
+    <view class="stage-header">
+      <view class="back-btn" bindtap="exitGame">{{t.common.exit}}</view>
+      <view class="game-info">{{activeGame.name}} - L{{difficulty}}</view>
+      <view class="timer">{{timeLeft}}s</view>
+    </view>
+
+    <!-- 游戏1：色差找不同 -->
+    <view class="game-odd-one" wx:if="{{activeGame.id === 'odd'}}">
+      <view class="grid" style="grid-template-columns: repeat({{gridSize}}, 1fr);">
+        <view 
+          class="grid-item" 
+          wx:for="{{gridItems}}" 
+          wx:key="index"
+          style="background-color: {{item.color}}; border-radius: {{gridSize > 5 ? '8rpx' : '16rpx'}}"
+          bindtap="handleGridTap"
+          data-index="{{index}}"
+        ></view>
+      </view>
+    </view>
+
+    <!-- 游戏2：颜色记忆翻牌 -->
+    <view class="game-memory" wx:if="{{activeGame.id === 'memory'}}">
+      <view class="memory-grid" style="grid-template-columns: repeat({{memorySize}}, 1fr);">
+        <view 
+          class="card {{item.flipped ? 'flipped' : ''}} {{item.matched ? 'matched' : ''}}" 
+          wx:for="{{memoryCards}}" 
+          wx:key="index"
+          bindtap="handleCardTap"
+          data-index="{{index}}"
+        >
+          <view class="card-front" style="background-color: {{item.color}}"></view>
+          <view class="card-back">❓</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 游戏3：色彩渐变排序 -->
+    <view class="game-sort" wx:if="{{activeGame.id === 'sort'}}">
+      <view class="sort-instruction">{{t.colorTrain.sortDesc}}</view>
+      <view class="sort-list">
+        <view 
+          class="sort-item {{selectedIndex === index ? 'selected' : ''}}" 
+          wx:for="{{sortItems}}" 
+          wx:key="id"
+          style="background-color: {{item.color}}"
+          bindtap="handleSortTap"
+          data-index="{{index}}"
+        ></view>
+      </view>
+      <button class="confirm-btn" bindtap="checkSortResult">{{t.colorTrain.sortConfirm}}</button>
+    </view>
+
+    <view class="guide-text">{{guideText}}</view>
+  </view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

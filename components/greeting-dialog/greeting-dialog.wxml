@@ -1,0 +1,15 @@
+<view class="greeting-overlay {{visible ? 'show' : ''}}" wx:if="{{visible}}" bindtap="onDismiss">
+  <view class="greeting-card" catchtap="">
+    <view class="greeting-avatar-wrap">
+      <image class="greeting-avatar" src="/assets/images/float-ball.png" mode="aspectFit"></image>
+      <view class="avatar-pulse"></view>
+    </view>
+    <view class="greeting-content">
+      <text class="greeting-text">{{displayText}}</text>
+      <view class="typing-cursor" wx:if="{{phase !== 'done'}}">|</view>
+    </view>
+    <view class="greeting-actions" wx:if="{{phase === 'done' && !isStreaming}}">
+      <view class="action-btn" bindtap="onTapDialog">知道了 👋</view>
+    </view>
+  </view>
+</view>

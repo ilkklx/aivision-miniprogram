@@ -1,0 +1,70 @@
+<!--pages/index/index.wxml-->
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container flex-column flex-center {{animateState}}">
+  <!-- 字体破碎粒子容器 -->
+  <view class="shatter-overlay {{isShattering ? 'active' : ''}}">
+    <view 
+      wx:for="{{particles}}" 
+      wx:key="id" 
+      class="particle {{item.shape}}" 
+      style="left: {{item.x}}%; top: {{item.y}}%; --tx: {{item.tx}}px; --ty: {{item.ty}}px; --rot: {{item.rot}}deg; background-color: {{item.color}};"
+    ></view>
+  </view>
+
+  <view class="main-content {{isShattering ? 'shattered' : ''}}">
+    <!-- 语言切换按钮 -->
+    <view class="top-bar">
+      <view class="user-entry" bindtap="goToLogin">
+        <text>{{isLoggedIn ? userInfo.nickName : '登录'}}</text>
+      </view>
+      <view class="lang-switch" bindtap="switchLanguage">
+        <text class="{{language === 'zh' ? 'active' : ''}}">中</text>
+        <text class="divider">|</text>
+        <text class="{{language === 'en' ? 'active' : ''}}">EN</text>
+      </view>
+    </view>
+
+    <view class="title-group flex-column flex-center">
+      <image class="logo fly-in-top" src="/assets/images/logo.png.png" mode="aspectFill"></image>
+      <text class="main-title fly-in-left">{{t.index.title}}</text>
+      <text class="sub-title fly-in-right">{{t.index.subtitle}}</text>
+    </view>
+
+    <view class="card info-card fly-in-top-right">
+      <view class="mode-chip">{{t.index.recommendMode}}</view>
+      <view class="info-item fly-in-left delay-1">
+        <view class="info-icon"></view>
+        <view>{{t.index.info1}}</view>
+      </view>
+      <view class="info-item fly-in-left delay-2">
+        <view class="info-icon"></view>
+        <view>{{t.index.info2}}</view>
+      </view>
+      <view class="info-item fly-in-left delay-3">
+        <view class="info-icon"></view>
+        <view>{{t.index.info3}}</view>
+      </view>
+    </view>
+
+    <view class="button-group">
+      <button class="btn menu-btn fly-in-bottom-left" bindtap="goToVision">
+        {{t.index.visionMode}}
+      </button>
+      <button class="btn menu-btn fly-in-bottom" bindtap="goToColorblind">
+        {{t.index.colorblindMode}}
+      </button>
+      <button class="btn menu-btn fly-in-bottom-right" bindtap="goToAstigmatism">
+        {{t.index.astigmatismMode}}
+      </button>
+      <button class="btn menu-btn fly-in-bottom" bindtap="goToEyeExercises">
+        {{t.index.eyeExercise}}
+      </button>
+    </view>
+
+    <view class="footer fly-in-bottom delay-4" bindanimationend="onAnimationFinished">
+      <text>{{t.index.footerTip}}</text>
+    </view>
+  </view>
+</view>
+
+<float-ball show="{{true}}" greeting="{{greetingText}}" eyeTip="{{eyeTipText}}" actionTip="{{actionTipText}}"></float-ball>

@@ -1,0 +1,53 @@
+<view class="login-container">
+  <view class="login-card" wx:if="{{!isLoggedIn}}">
+    <image class="login-logo" src="/assets/images/float-ball.png" mode="aspectFit"></image>
+    <text class="login-title">灵眸慧检</text>
+    <text class="login-desc">登录后享受个性化AI健康提醒</text>
+
+    <view class="avatar-row">
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar-preview" src="{{avatarUrl || '/assets/images/float-ball.png'}}" mode="aspectFill"></image>
+        <text class="avatar-tip">点击选择头像</text>
+      </button>
+    </view>
+
+    <view class="nickname-row">
+      <text class="form-label">昵称</text>
+      <input
+        class="nickname-input"
+        type="nickname"
+        placeholder="请输入昵称"
+        value="{{nickName}}"
+        bindinput="onNicknameInput"
+        bindblur="onNicknameInput"
+      />
+    </view>
+
+    <button class="confirm-login-btn" bindtap="onConfirmLogin">确认登录</button>
+  </view>
+
+  <view class="profile-card" wx:if="{{isLoggedIn}}">
+    <image class="profile-avatar" src="{{userInfo.avatarUrl || '/assets/images/float-ball.png'}}" mode="aspectFill"></image>
+    <text class="profile-name">{{userInfo.nickName || '微信用户'}}</text>
+    <view class="profile-tag">
+      <text>微信登录</text>
+    </view>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{loginCount}}</text>
+        <text class="stat-label">登录次数</text>
+      </view>
+    </view>
+    <view class="last-login" wx:if="{{lastLoginTime}}">
+      <text>上次登录: {{lastLoginTime}}</text>
+    </view>
+    <view class="btn-row">
+      <view class="logout-btn" bindtap="onLogout">
+        <text>退出登录</text>
+      </view>
+      <view class="back-btn" bindtap="goBack">
+        <text>返回</text>
+      </view>
+    </view>
+  </view>
+</view>

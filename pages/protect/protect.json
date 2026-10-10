@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "护眼训练营",
+  "navigationBarBackgroundColor": "#E3F2FD",
+  "navigationBarTextStyle": "black",
+  "disableScroll": true,
+  "usingComponents": {
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

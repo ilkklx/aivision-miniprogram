@@ -1,0 +1,53 @@
+<view class="float-ball-wrap" wx:if="{{show}}" style="left:{{posX}}rpx;top:{{posY}}rpx;">
+  <view class="comic-bubble {{showBubble ? 'show' : ''}} {{bubblePosition}}" wx:if="{{showBubble}}" bindtap="onBubbleTap">
+    <view class="bubble-tail"></view>
+    <view class="bubble-inner-tail"></view>
+    <view class="bubble-body">
+      <scroll-view class="bubble-scroll" scroll-y wx:if="{{bubbleText.length > 60}}">
+        <text class="bubble-text">{{displayBubbleText}}</text>
+        <view class="bubble-cursor" wx:if="{{isTyping}}">|</view>
+      </scroll-view>
+      <view class="bubble-fixed" wx:else>
+        <text class="bubble-text">{{displayBubbleText}}</text>
+        <view class="bubble-cursor" wx:if="{{isTyping}}">|</view>
+      </view>
+    </view>
+  </view>
+
+  <view
+    class="float-ball-container"
+    hover-class="ball-hover"
+    bindtap="onTapBall"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    hover-stay-time="100"
+  >
+    <view class="glow-ring {{barsActive ? 'active' : ''}}"></view>
+    <view class="ball-body">
+      <image class="ball-image" src="/assets/images/float-ball.png" mode="aspectFit"></image>
+      <view class="shine-overlay"></view>
+    </view>
+    <view class="music-bars {{barsActive ? 'active' : ''}}">
+      <view class="bar bar-0"></view>
+      <view class="bar bar-1"></view>
+      <view class="bar bar-2"></view>
+      <view class="bar bar-3"></view>
+      <view class="bar bar-4"></view>
+    </view>
+    <view class="recording-indicator" wx:if="{{isRecording}}"></view>
+  </view>
+</view>
+
+<view class="greeting-popup {{showGreeting ? 'show' : ''}}" wx:if="{{showGreeting}}" bindtap="onDismissGreeting">
+  <view class="greeting-popup-card" catchtap="">
+    <image class="popup-avatar" src="/assets/images/float-ball.png" mode="aspectFit"></image>
+    <view class="popup-text-wrap">
+      <text class="popup-text">{{displayGreeting}}</text>
+      <view class="popup-cursor" wx:if="{{greetingPhase !== 'done'}}">|</view>
+    </view>
+    <view class="popup-action" wx:if="{{greetingPhase === 'done'}}" bindtap="onDismissGreeting">
+      <text class="popup-action-text">知道了 👋</text>
+    </view>
+  </view>
+</view>

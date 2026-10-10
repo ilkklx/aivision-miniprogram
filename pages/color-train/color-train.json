@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "色彩感官训练",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "disableScroll": true,
+  "usingComponents": {
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

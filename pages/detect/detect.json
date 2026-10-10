@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "视力检测中",
+  "usingComponents": {
+    "vision-chart": "/components/vision-chart/vision-chart",
+    "float-ball": "/components/float-ball/float-ball"
+  }
+}

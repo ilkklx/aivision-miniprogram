@@ -1,0 +1,66 @@
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <view class="header">
+    <view class="title">🌟 {{t.protect.title}}</view>
+    <view class="subtitle">{{t.protect.subtitle}}</view>
+    
+    <view class="stats-card" bindtap="showWeeklyReport">
+      <view class="stat-item">
+        <text class="stat-num">{{weeklyMinutes}}</text>
+        <text class="stat-label">{{t.protect.weeklyTime}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{completedCount}}</text>
+        <text class="stat-label">{{t.protect.finishCount}}</text>
+      </view>
+      <view class="stat-btn" catchtap="toggleParentMode">
+        {{parentMode ? t.protect.parentModeOn : t.protect.parentModeOff}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏列表区域 -->
+  <scroll-view scroll-y class="game-list" wx:if="{{!currentGame}}">
+    <view class="game-card {{item.id}}" wx:for="{{games}}" wx:key="id" bindtap="startGame" data-id="{{item.id}}">
+      <view class="game-icon">{{item.icon}}</view>
+      <view class="game-info">
+        <view class="game-name">{{item.name}} <text class="level-tag">L{{item.level}}</text></view>
+        <view class="game-desc">{{item.desc}}</view>
+      </view>
+      <view class="play-btn">{{t.protect.startTrain}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 游戏进行区域 -->
+  <view class="game-area" wx:if="{{currentGame}}">
+    <view class="game-top-bar">
+      <view class="back-btn" bindtap="exitGame">{{t.common.back}}</view>
+      <view class="timer">⏱️ {{timeLeft}}s</view>
+    </view>
+
+    <view class="game-title">{{currentGame.name}}</view>
+    
+    <view class="game-stage">
+      <!-- 游戏1：眼球追踪 (移动的小星星) -->
+      <view class="star {{isGamePlaying ? 'moving' : ''}}" wx:if="{{currentGame.id === 'track'}}">⭐</view>
+      
+      <!-- 游戏2：远近调节 (缩放的热气球) -->
+      <view class="balloon {{isGamePlaying ? 'scaling' : ''}}" wx:if="{{currentGame.id === 'focus'}}">🎈</view>
+      
+      <!-- 游戏3：眼球转动 (旋转的风车) -->
+      <view class="windmill-container" wx:if="{{currentGame.id === 'rotate'}}">
+        <view class="windmill {{isGamePlaying ? 'rotating' : ''}}">🌀</view>
+      </view>
+    </view>
+
+    <view class="voice-guide">
+      <text>🔊 {{voiceText}}</text>
+    </view>
+
+    <view class="game-controls">
+      <button class="control-btn" bindtap="toggleGamePlay">{{isGamePlaying ? t.common.pause : t.common.resume}}</button>
+    </view>
+  </view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>

@@ -1,0 +1,44 @@
+<!--pages/astigmatism/astigmatism.wxml-->
+<image class="global-bg" src="/assets/images/bg.png.png" mode="aspectFill"></image>
+<view class="container">
+  <view class="header">
+    <view class="title">{{t.index.astigmatismMode}}</view>
+    <view class="subtitle">{{t.astigTrain.instructionMeridian}}</view>
+  </view>
+
+  <view class="test-area card">
+    <view class="astigmatism-chart">
+      <view class="line" wx:for="{{lines}}" wx:key="angle" style="transform: rotate({{item.angle}}deg)"></view>
+      <view class="center-circle"></view>
+    </view>
+  </view>
+
+  <view class="question-area">
+    <view class="question-text">{{t.astigTrain.instructionContrast}}</view>
+    <view class="button-group">
+      <button class="btn btn-primary" bindtap="answer" data-val="yes">{{t.common.confirm}}</button>
+      <button class="btn btn-outline" bindtap="answer" data-val="no">{{t.common.cancel}}</button>
+    </view>
+  </view>
+
+  <view class="axis-selection" wx:if="{{showAxisPicker}}">
+    <view class="picker-title">{{t.astigTrain.instructionMeridian}}</view>
+    <view class="axis-picker">
+      <view 
+        class="axis-item {{selectedAxis === item.angle ? 'active' : ''}}" 
+        wx:for="{{lines}}" 
+        wx:key="angle"
+        style="transform: rotate({{item.angle}}deg)"
+        bindtap="selectAxis"
+        data-angle="{{item.angle}}"
+      >
+        <view class="axis-indicator"></view>
+      </view>
+    </view>
+    <button class="btn btn-primary confirm-btn" bindtap="confirmAxis">{{t.common.confirm}}</button>
+  </view>
+
+  <view class="tip">{{t.result.footerTip}}</view>
+</view>
+
+<float-ball show="{{true}}"></float-ball>
