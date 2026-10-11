@@ -2,3 +2,12 @@ node_modules/
 miniprogram_npm/
 .DS_Store
 Thumbs.db
+
+# Local credentials and developer settings
+project.private.config.json
+.env
+.env.*
+!.env.example
+*.local.js
+*.local.json
+.private-review/

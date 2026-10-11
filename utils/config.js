@@ -1,5 +1,5 @@
 const config = {
-  apiKey: 'sk-REPLACE_WITH_YOUR_OWN_DEEPSEEK_KEY',
+  apiKey: '',
   apiUrl: 'https://api.deepseek.com/chat/completions',
   model: 'deepseek-chat',
   maxTokens: 1024,
